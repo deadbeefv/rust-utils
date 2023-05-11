@@ -70,10 +70,9 @@ impl Accept for UDSConnector {
         self: Pin<&mut Self>,
         cx: &mut Context<'_>,
     ) -> Poll<Option<Result<Self::Conn, Self::Error>>> {
-        match self.inner.poll_accept(cx) {
-            Poll::Pending => Poll::Pending,
-            Poll::Ready(Ok((socket, _addr))) => Poll::Ready(Some(Ok(socket))),
-            Poll::Ready(Err(err)) => Poll::Ready(Some(Err(err))),
+        match self.inner.accept() {
+            Ok(T) => Poll::Ready(Some(Ok(T.0))),
+            Err(E) => Poll::Ready(Some(Err(E)))
         }
     }
 }
