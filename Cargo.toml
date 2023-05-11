@@ -40,6 +40,7 @@ tokio = {version = "1.19", features = ["rt-multi-thread", "time", "fs", "macros"
 tokio-stream = {version = "0.1", features = ["net"]}
 tokio-rustls = { version = "0.23.4"}
 tonic = {version = "0.7.2",features = [ "tls", "compression", "tls-roots",]}
+uds_windows = "1.0.2"
 tower = { version = "0.4" }
 tower-http = { version = "0.3.3", features = ["add-extension","auth","propagate-header","set-header","sensitive-headers","trace","compression-gzip"]}
 tracing = {version = "0.1.34"}

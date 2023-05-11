@@ -3,7 +3,8 @@ use rand::distributions::{Alphanumeric, DistString};
 use std::io::Error;
 use std::pin::Pin;
 use std::task::{Context, Poll};
-use tokio::net::{UnixListener, UnixStream};
+// use tokio::net::{UnixListener, UnixStream};
+use uds_windows::{UnixListener, UnixStream};
 
 pub struct UDSConnector {
     inner: UnixListener,
