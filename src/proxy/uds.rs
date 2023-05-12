@@ -4,11 +4,14 @@ use std::io::Error;
 use std::pin::Pin;
 use std::task::{Context, Poll};
 
+#[cfg(target_os = "windows")]
+use tokio::io::{AsyncRead, AsyncWrite};
+
 #[cfg(not(target_os = "windows"))]
 use tokio::net::{UnixListener, UnixStream};
 
 #[cfg(target_os = "windows")]
-use uds_windows;
+use uds_windows::{UnixListener, UnixStream};
 
 #[cfg(not(target_os = "windows"))]
 pub struct UDSConnector {
@@ -18,7 +21,7 @@ pub struct UDSConnector {
 
 #[cfg(target_os = "windows")]
 pub struct UDSConnector {
-    inner: uds_windows::UnixListener,
+    inner: UnixListener,
     path: String,
 }
 
@@ -31,7 +34,7 @@ impl UDSConnector {
 
     #[cfg(target_os = "windows")]
     pub fn new(path: String) -> Result<Self, Error> {
-        let uds = uds_windows::UnixListener::bind(&path)?;
+        let uds = UnixListener::bind(&path)?;
         Ok(UDSConnector { inner: uds, path })
     }
 
@@ -50,7 +53,7 @@ impl Accept for UDSConnector {
     type Conn = UnixStream;
 
     #[cfg(target_os = "windows")]
-    type Conn = uds_windows::UnixStream;
+    type Conn = UnixStream;
     
     type Error = Error;
     #[cfg(not(target_os = "windows"))]
