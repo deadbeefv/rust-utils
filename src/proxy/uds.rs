@@ -11,16 +11,10 @@ use tokio::net::{UnixListener, UnixStream};
 #[cfg(target_os = "windows")]
 use uds_windows::{UnixStream, UnixListener};
 
-// #[cfg(target_os = "windows")]
-// use tokio_uds_windows::UnixStream;
-// #[cfg(target_os = "windows")]
-// use tokio_uds_windows::UnixListener;
-
 pub struct UDSConnector {
     inner: UnixListener,
     path: String,
 }
-
 
 impl UDSConnector {
 
