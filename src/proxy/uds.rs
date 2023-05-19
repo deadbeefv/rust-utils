@@ -3,6 +3,8 @@ use rand::distributions::{Alphanumeric, DistString};
 use std::io::Error;
 use std::pin::Pin;
 use std::task::{Context, Poll};
+
+#[cfg(target_os = "windows")]
 use std::env::temp_dir;
 
 #[cfg(not(target_os = "windows"))]
